@@ -1,46 +1,47 @@
 version: "3.8"
+
 services:
   mongodb:
-    image: "mongo"
+    image: mongo
+    container_name: mongodb
+    # restart: unless_stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
     volumes:
-      - mongo-data:/data/db
-    # environment:
-    # - MONGO_INITDB_ROOT_USERNAME=max
-    # MONGO_INITDB_ROOT_USERNAME: john
-    # MONGO_INITDB_ROOT_PASSWORD: secret
-    env_file:
-      - ./env/mongo.env
+      - mongodata:/data/db
 
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
-      args:
-        DEFAULT_PORT: 5000
-    ports:
-      - "80:5000"
-    volumes:
-      - logs:/app/logs
-      - ./backend:/app
-      - /app/node_modules
-    env_file:
-      - ./env/backend.env
+    container_name: backend
     depends_on:
       - mongodb
+    environment:
+      MONGODB_USERNAME: ${MONGODB_USERNAME}
+      MONGODB_PASSWORD: ${MONGODB_PASSWORD}
+      MONGODB_USER: ${MONGODB_DATABASE}
+      PORT: ${BACKEND_PORT}
+    ports:
+      - "${HOST_PORT}:${BACKEND_PORT}"
+    volumes:
+      - backend_log:/app/logs
+      - ./backend:/app/
+      - /app/node_modules/
 
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    container_name: frontend
     ports:
-      - "3001:3000"
+      - "3000:3000"
     volumes:
-      - ./frontend/src:/app/src
+      - ./frontend/src:/app/src/
     stdin_open: true
     tty: true
-    depends_on:
-      - backend
 
 volumes:
-  mongo-data:
-  logs:
+  mongodata:
+  backend_log:
