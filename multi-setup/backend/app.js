@@ -86,7 +86,7 @@ app.delete("/goals/:id", async (req, res) => {
 mongoose.connect(
   // "mongodb://localhost:27017/course-goals",
   // "mongodb://host.docker.internal:27017/course-goals",
-  ` mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@mongodb:27017/course-goals?authSource=admin`,
+  ` mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@mongodb:27017/course-goals?authSource=${MONGODB_DATABASE}`,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -97,7 +97,7 @@ mongoose.connect(
       console.error(err);
     } else {
       console.log("CONNECTED TO MONGODB");
-      app.listen(process.env.PORT);
+      app.listen(process.env.BACKEND_PORT);
     }
   }
 );

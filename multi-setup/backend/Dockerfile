@@ -8,14 +8,6 @@ RUN npm install
 
 COPY . /app/
 
-ARG DEFAULT_PORT=5000
-
-ENV PORT=$DEFAULT_PORT
-
-# ENV MONGODB_USERNAME=root
- 
-# ENV MONGODB_PASSWORD=secret
-
-EXPOSE $PORT 
+EXPOSE 5000
 
 CMD ["npm", "start"]
