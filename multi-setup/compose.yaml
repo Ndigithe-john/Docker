@@ -27,6 +27,7 @@ services:
       MONGODB_USERNAME: ${MONGODB_USERNAME}
       MONGODB_PASSWORD: ${MONGODB_PASSWORD}
       MONGODB_DATABASE: ${MONGODB_DATABASE}
+      PORT: ${BACKEND_PORT}
 
     # env_file:
     #   - ./backend/.env

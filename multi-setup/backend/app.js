@@ -97,7 +97,7 @@ mongoose.connect(
       console.error(err);
     } else {
       console.log("CONNECTED TO MONGODB");
-      app.listen(process.env.BACKEND_PORT);
+      app.listen(process.env.PORT);
     }
   }
 );
