@@ -1,15 +1,12 @@
 {
-  "name": "test",
+  "name": "new",
   "version": "1.0.0",
-  "description": "test entry point and utility container with bind mount as well",
+  "description": "\"test build app\"",
   "license": "ISC",
-  "author": "John",
+  "author": "",
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "dependencies": {
-    "express": "^5.2.1"
   }
 }
