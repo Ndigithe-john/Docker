@@ -2,8 +2,11 @@ version: "3.8"
 
 services:
   server:
-    image: nginx
+    # image: nginx
     # container_name: web_server
+    build:
+      context: .
+      dockerfile: dockerfiles/nginx.dockerfile
     ports:
       - "8000:80"
     volumes:
@@ -15,10 +18,10 @@ services:
 
   php:
     build:
-      context: ./dockerfiles
-      dockerfile: php.dockerfile
-    volumes:
-      - ./src:/var/www/html:delegated
+      context: .
+      dockerfile: dockerfiles/php.dockerfile
+    # volumes:
+    #   - ./src:/var/www/html:delegated
 
   mysql:
     image: mysql:5.7
@@ -32,5 +35,16 @@ services:
       dockerfile: composer.dockerfile
     volumes:
       - ./src:/var/www/html
-  # artisan:
-  # npm:
+  artisan:
+    build:
+      context: .
+      dockerfile: dockerfiles/php.dockerfile
+    volumes:
+      - ./src:/var/www/html
+    entrypoint: ["php", "/var/www/html/artisan"]
+  npm:
+    image: node:19
+    working_dir: /var/www/html
+    entrypoint: ["npm"]
+    volumes:
+      - ./src:/var/www/html
