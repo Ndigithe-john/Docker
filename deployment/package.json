@@ -7,5 +7,8 @@
   },
   "author": "Ndigithe-john",
   "license": "ISC",
-  "description": ""
+  "description": "deployment app",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
 }
